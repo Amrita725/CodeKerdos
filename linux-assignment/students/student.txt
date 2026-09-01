@@ -1,0 +1,10 @@
+Name: Amrita
+Course: SRE
+Experience: Fresher
+Location: Hyderabad
+Goal: DevOps Engineer
+Name: Ashley
+Course: DevOps
+Experience: Fresher
+Location: London
+Goal: DevOps 

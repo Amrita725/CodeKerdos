@@ -1,0 +1,60 @@
+Task 1:
+Create the following directory structure:
+linux-practice/
+ files/
+ backup/
+ reports/
+
+mkdir linux-practice
+mkdir -p linux-practice/{files,backup,reports}
+
+Task 2:
+Create these files inside files:
+
+file1.txt
+file2.txt
+file3.txt
+file4.txt
+file5.txt
+
+Solution: 
+cd linux-practice/
+touch files{1..5}.txt
+
+
+Copy file1.txt to the backup directory : cp files1.txt /linux-practice/backup/
+Copy file2.txt, file3.txt, and file4.txt to the backup directory using one command : cp files2.txt files3.txt files4.txt /linux-practice/backup/
+Rename file5.txt to important.txt : mv files5.txt important.txt
+Move important.txt from files to reports : mv important.txt /linux-practice/reports/
+Copy the entire files directory into backup: cp -r /linux-practice/files/ /linux-practice/backup/
+Create a file called combined.txt by combining the contents of file1.txt and file2.txt :cat files1.txt files2.txt > combined.txt
+
+
+Display the first 10 lines of the log : head -n 10 server.log 
+Display the first 20 lines : head -n 20 server.log 
+Display the last 10 lines :  tail  -n 10 server.log 
+Display the last 5 lines :  tail  -n 5 server.log 
+Display lines 35 to 50 :  head -n 50 server.log | tail -n 16
+Display only lines 41 to 45 : sed -n  '41,45p' server.log
+
+Find all lines containing ERROR : grep "ERROR" server.log 
+Search for error without worrying about uppercase/lowercase : grep -i  "error" server.log  
+Find the number of lines containing ERROR : grep -c "ERROR" server.log 
+Display the line numbers where ERROR appears.  grep -n "ERROR" server.log
+Display all lines that do not contain ERROR :  grep -v "ERROR" server.log
+Display 5 lines before every ERROR : grep -B5 "ERROR" server.log 
+Display 5 lines after every ERROR : grep -A5 "ERROR" server.log 
+Display 5 lines before and after every ERROR : grep -C5 "ERROR" server.log
+Search for the word database in the log without worrying about case : grep -i "database" server.log 
+
+How many ERROR messages are present : grep -c "ERROR" production.log  
+Which lines contain login failures? grep -Ein "login failed|Failed login" production.log 
+Which lines contain database-related errors? : grep -Ein "database error| error database" production.log
+What are the line numbers of the errors : grep -n "ERROR" production.log 
+Show 3 lines before and after each important error : grep -C3 "ERROR" production.log 
+Show the last 15 lines of the log : tail -n 15 production.log   
+Show lines 50-70. : head -n 70 production.log | tail -n 21
+Are there any duplicate error messages: grep "ERROR" production.log | sort | uniq -d 
+Create a separate file containing the relevant error information : grep -i "ERROR" production.log > error.txt
+Rename the original log file as a backup and create a copy of it in the backup directory : mv production.log production_bkp.log, cp production_bkp.log backup/ 
+

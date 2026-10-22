@@ -1,0 +1,50 @@
+2026-08-25 09:00:01 INFO   Application started successfully
+2026-08-25 09:00:05 DEBUG  Loading configuration file config.yaml
+2026-08-25 09:00:08 INFO   Database connection established
+2026-08-25 09:01:12 INFO   User login successful user=admin
+2026-08-25 09:01:15 INFO   GET /api/v1/courses status=200 user=admin
+2026-08-25 09:01:20 INFO   GET /api/v1/profile status=200 user=admin
+2026-08-25 09:02:10 WARN   High memory usage memory=78%
+2026-08-25 09:02:20 DEBUG  Cache refresh initiated
+2026-08-25 09:03:01 ERROR  Database connection timeout
+2026-08-25 09:03:15 INFO   User login successful user=chenna
+2026-08-25 09:03:20 INFO   POST /api/v1/auth/register status=201 user=rajesh
+2026-08-25 09:04:10 WARN   API response slow duration=2.5s endpoint=/api/v1/courses
+2026-08-25 09:05:01 INFO   GET /api/v1/courses status=200 user=chenna
+2026-08-25 09:06:01 ERROR  Failed to execute SQL query
+2026-08-25 09:06:15 DEBUG  Retrying database connection
+2026-08-25 09:07:01 INFO   Database connection restored
+2026-08-26 10:00:01 INFO   User login successful user=suresh
+2026-08-26 10:00:20 INFO   GET /api/v1/students status=200 user=suresh
+2026-08-26 10:00:35 DEBUG  JWT token validation started
+2026-08-26 10:01:01 ERROR  Invalid JWT token
+2026-08-26 10:01:15 WARN   Multiple failed login attempts user=test
+2026-08-26 10:02:01 INFO   User login successful user=priya
+2026-08-26 10:02:15 INFO   GET /api/v1/courses status=200 user=priya
+2026-08-26 10:03:01 DEBUG  Reading cache entry id=123
+2026-08-26 10:03:15 INFO   POST /api/v1/enroll status=201 user=priya
+2026-08-26 10:04:01 ERROR  Connection refused to backend service
+2026-08-26 10:05:01 WARN   CPU usage high cpu=85%
+2026-08-26 10:06:01 INFO   User logout successful user=priya
+2026-08-27 08:00:01 INFO   Application restarted
+2026-08-27 08:00:20 DEBUG  Initializing scheduler
+2026-08-27 08:01:01 INFO   User login successful user=devops
+2026-08-27 08:01:15 INFO   GET /api/v1/dashboard status=200 user=devops
+2026-08-27 08:02:01 WARN   Disk usage high disk=82%
+2026-08-27 08:03:01 ERROR  PostgreSQL connection failed
+2026-08-27 08:03:15 DEBUG  Reconnecting to PostgreSQL
+2026-08-27 08:04:01 INFO   Database connection established
+2026-08-27 08:04:15 INFO   GET /api/v1/users status=200 user=devops
+2026-08-27 08:05:01 ERROR  Authentication service unavailable
+2026-08-27 08:06:01 INFO   User login successful user=arun
+2026-08-27 08:06:20 INFO   POST /api/v1/auth/login status=200 user=arun
+2026-08-27 08:07:01 DEBUG  Session created session_id=abc123
+2026-08-28 11:00:01 INFO   User login successful user=kumar
+2026-08-28 11:00:20 INFO   GET /api/v1/courses status=200 user=kumar
+2026-08-28 11:01:01 WARN   Response time high endpoint=/api/v1/courses duration=4s
+2026-08-28 11:01:20 ERROR  Payment service timeout
+2026-08-28 11:02:01 INFO   User login successful user=lakshmi
+2026-08-28 11:02:20 INFO   GET /api/v1/profile status=200 user=lakshmi
+2026-08-28 11:03:01 DEBUG  Sending email notification
+2026-08-28 11:03:20 ERROR  SMTP server not reachable
+2026-08-28 11:04:01 INFO   Application health check successful

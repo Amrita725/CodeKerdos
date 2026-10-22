@@ -1,0 +1,17 @@
+2026-08-29 08:09:03 ERROR database Database connection timeout host=db-primary
+2026-08-29 08:12:17 ERROR auth Login failed user=rahul reason=invalid_password
+2026-08-29 08:15:44 ERROR api Request failed endpoint=/api/v1/payment status=500
+2026-08-29 08:15:45 ERROR payment Payment gateway timeout transaction=TXN10045
+2026-08-29 08:21:03 ERROR database Database query failed query=SELECT_USERS reason=connection_reset
+2026-08-29 08:21:04 ERROR database Database connection timeout host=db-primary
+2026-08-29 08:26:44 ERROR auth Login failed user=admin reason=invalid_password
+2026-08-29 08:26:45 ERROR auth Login failed user=admin reason=invalid_password
+2026-08-29 08:32:04 ERROR database Database connection timeout host=db-primary
+2026-08-29 08:36:01 ERROR api Request failed endpoint=/api/v1/orders status=503
+2026-08-29 08:42:18 ERROR payment Payment gateway timeout transaction=TXN10089
+2026-08-29 08:46:12 ERROR auth Login failed user=neha reason=user_locked
+2026-08-29 08:52:16 ERROR database Database query failed query=SELECT_ORDERS reason=deadlock
+2026-08-29 08:58:04 ERROR api Request timeout endpoint=/api/v1/reports duration=5000ms
+2026-08-29 09:03:18 ERROR auth Login failed user=test reason=invalid_password
+2026-08-29 09:10:22 ERROR database Database connection timeout host=db-primary
+2026-08-29 09:15:12 ERROR payment Payment failed transaction=TXN10155 reason=insufficient_funds

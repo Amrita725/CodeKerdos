@@ -1,0 +1,194 @@
+Assignment 1 â€” System Health Check:
+-----------------------------------
+Run the following commands and prepare a basic system health report:
+
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# uptime
+ 20:41:49 up 13 days,  9:30,  0 user,  load average: 3.80, 3.47, 3.37
+
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# free -h 
+               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       2.6Gi       171Mi       156Mi       1.4Gi       1.2Gi
+Swap:          1.0Gi        42Mi       981Mi
+  root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# df -h 
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         453G   21G  410G   5% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/vda1       453G   21G  410G   5% /etc/hosts
+tmpfs           2.0G     0  2.0G   0% /proc/scsi
+tmpfs           2.0G     0  2.0G   0% /sys/firmware
+
+top - 20:46:02 up 13 days,  9:34,  0 user,  load average: 4.03, 3.74, 3.50
+Tasks:   2 total,   1 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  3.1 us,  0.7 sy,  0.0 ni, 95.5 id,  0.0 wa,  0.0 hi,  0.7 si,  0.0 st 
+MiB Mem :   3918.9 total,    178.1 free,   2648.8 used,   1431.8 buff/cache     
+MiB Swap:   1024.0 total,    981.8 free,     42.2 used.   1270.1 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                                 
+      1 root      20   0    4436   3740   3100 S   0.0   0.1   0:02.51 bash                                                                                                                                    
+   3548 root      20   0    8724   4932   2812 R   0.0   0.1   0:00.04 top   
+
+
+How long has the system been running:  13 days 9 hours 34 mins
+How many users are currently logged in: 0 users
+What are the 1-minute, 5-minute and 15-minute load averages: 4.03, 3.74, 3.50
+How much total RAM is available : 1.2Gi
+How much RAM is currently used : 2.6Gi
+How much swap is available : 981Mi
+Which filesystem has the highest disk utilization : overlay and /dev/vda1
+Is any filesystem above 80% utilization: No
+
+Assignment 2 â€” Monitor RAM in Real Time
+---------------------------------------
+
+Use free and watch to monitor memory.
+
+free -h
+watch free -h
+watch -n 5 free -h
+
+Tasks:
+
+Monitor RAM for 2 minutes: timeout 120 watch -n 2 free -h  
+Record RAM utilization every 30 seconds.  : wrote a script
+Record total, used, free, buff/cache, and available : free -h >> RAM_Utilisation.txt
+
+
+Question: Why can free memory be very low while available memory is still high? Answer: Linux uses otherwise idle RAM for caching to improve performance. Therefore, free memory can be low while available memory remains high. When checking whether a Linux system is running out of RAM, the available column is generally more useful than free.
+
+
+Assignment 3 â€” CPU Monitoring Using top
+--------------------------------------
+Run:
+
+top  top - 22:26:47 up 13 days, 14:46,  0 user,  load average: 2.26, 3.45, 3.71
+Tasks:   2 total,   1 running,   1 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  3.3 us,  0.8 sy,  0.0 ni, 95.0 id,  0.0 wa,  0.0 hi,  0.8 si,  0.0 st 
+MiB Mem :   3918.9 total,    128.9 free,   2664.7 used,   1464.9 buff/cache     
+MiB Swap:   1024.0 total,    981.3 free,     42.7 used.   1254.2 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                                 
+  75908 root      20   0    8724   4928   2808 R   0.3   0.1   0:00.02 top                                                                                                                                     
+      1 root      20   0    4436   3740   3100 S   0.0   0.1   0:03.07 bash                                                                                                                                    
+
+
+
+Then:
+
+top -d 5 : output updated after every 5 seconds
+top -n 3 :  updated 3 times and then came out of the command
+top -b -n 3  : output in batches,  3 times
+top -c : gave the exact command
+
+Answer the following:
+
+What is the total CPU utilization: 5%  (Total CPU utilisation = 100 - idle ; 100 - 95 = 5% )
+Which process is consuming the most CPU : 75908 PID
+Which process is consuming the most memory : 75908
+What is the meaning of %us, %sy, %id, %wa?  %us : %CPU time utilised by user process, %sy : %CPU time utilised by system/kernel process, %id: %CPU time idle, %wa : %CPU time waiting for I/O
+What is the difference between top -n 3 and top -d 5 : top -n 3 will update top command 3 times and then come out of the command. Top -d 5 will update top command every 5 second.
+Why would top -b be useful in scripts? top -b runs top in batch mode, so it produces plain, non-interactive output that can be captured, redirected to a file, or processed by other commands/scripts.
+
+Assignment 4 â€” Find Resource-Hungry Processes:
+---------------------------------------------
+Find the processes consuming the most CPU and memory.
+
+Use:
+
+ps -ef
+ps -aux
+
+Then:
+
+ps -aux --sort=-%cpu
+ps -aux --sort=-%mem
+
+Tasks:
+
+Find the top 5 CPU-consuming processes. ps -aux --sort=-%cpu | head -n 6
+Find the top 5 memory-consuming processes. ps -aux --sort=-%mem | head -n 6 
+Identify the PID of the highest CPU-consuming process. ps -aux --sort=-%cpu | head -n 2 | awk '{print $2}'
+Find details about that PID using: 
+ps -p <PID> : ps -p 1    
+    PID TTY          TIME CMD
+      1 pts/0    00:00:03 bash
+
+Assignment 5 â€” Process Investigation:
+-------------------------------------
+Choose any running process.
+
+Run:
+
+ps -p <PID>
+ps -ef | grep <process>
+ps -T -p <PID>
+
+
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 11:54 pts/0    00:00:03 bash
+root       75970       1 99 23:21 pts/0    00:00:00 ps -ef
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# ps -p 1
+    PID TTY          TIME CMD
+      1 pts/0    00:00:03 bash
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# ps -T -p 1
+    PID    SPID TTY          TIME CMD
+      1       1 pts/0    00:00:03 bash
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment3# 
+
+Answer:
+
+What is the PID? Process ID uniquely identifies a process while it exists.
+Who owns the process? root — shown in the UID column of ps -ef.
+When was the process started? 11:54 — shown in the STIME column. It indicates the start time for this process.
+What command started the process? bash — shown in the CMD column. The process is running the Bash shell.
+How many threads does it have? 1 — your ps -T -p 1 output shows one thread.
+What are the thread IDs? 1 — shown in the SPID column.
+What is the difference between a process and a thread?
+ Process: A program in execution, with its own process resources and virtual address space.
+Thread: A unit of execution within a process. Threads in the same process generally share its memory and other resources, but each has its own execution state and stack.
+Relationship: A process can contain one or multiple threads.
+
+
+Assignment 6 â€” User Process Investigation:
+------------------------------------------
+Create/use your Linux user and run ps -f -u <username> Solution:  useradd -m amrita sudo su - su - amrita ps -f -u amrita 
+UID          PID    PPID  C STIME TTY          TIME CMD
+amrita     76168   76167  0 08:34 pts/1    00:00:00 -sh
+amrita     76172   76168 75 08:34 pts/1    00:00:00 ps -f -u amrita 
+
+Tasks:
+
+List all processes belonging to your user.  ps -f -u amrita
+Identify which shell you're using: echo $0
+Identify the PID of your shell : echo $$
+
+Start in another terminal. sleep 500. Find the sleep process. Kill the process.
+$ ps -ef |grep sleep 
+amrita 76175 76168 0 08:53 pts/0 00:00:00 sleep 500 
+amrita 76176 76168 0 08:53 pts/1 00:00:00 grep sleep
+kill 76175
+
+Assignment 7 â€” Measure Command Execution Time:
+----------------------------------------------
+Compare:
+
+time sleep 2 and time sleep 5
+Then:
+time ls
+
+time find /var -type f
+real	0m0.069s
+user	0m0.002s
+sys	0m0.060s
+ Takeaways: 
+real increases because the second command waits longer.
+user and sys remain very low because sleep waits instead of performing calculations.
+
+
+Answer:
+
+What is real time?  is the actual elapsed time from when the command starts until it finishes
+What is user time? is the CPU time spent executing the program's code in user space. 
+What is sys time? is the CPU time spent executing kernel code on behalf of the program, typically while handling system calls
+

@@ -1,0 +1,252 @@
+1. What is the difference between mkdir and touch?
+
+mkdir : used to create directory. 
+
+touch : used to create empty files. If the file already exists, It updated the file's timestamp without changing its content.
+
+ 
+
+2. What is the difference between cp and mv?
+
+cp : used to copy/duplicate the file. 
+
+mv :  used to move/rename a file. It does not duplicate the file.
+
+
+
+3. What happens when you use cat > file.txt and the file already exists?
+
+> is used for output redirection. 
+
+If the file already exists, it will overwrite the file.
+
+
+
+4. What happens when you use cat >> file.txt and the file already exists?
+
+>> is used to append the output. 
+
+If the file already exists, the output will be appended in the existing content.
+
+
+
+5. What does Ctrl+D do when using cat > file.txt?
+
+Ctrl+D helps to come out of the cat command. Basically it signals EOF on the terminal input.
+
+
+
+6. What is the difference between cat and tac?
+
+cat :  displays the content of a file i forward order
+
+tac :  displays the content of a file is reverse line order.
+
+
+
+7. What is the purpose of head?
+
+head : displays the beginning of a file.  By default it displays the first 10 lines
+
+
+
+8. What is the purpose of tail?
+
+tail : displays the end of files. By default it displays the last 10 lines
+
+
+
+9. How do you display only the first 5 lines of a file?
+
+head -n 5 file.txt
+
+
+
+10. How do you display only the last 5 lines of a file?
+
+tail -n 5 file.txt
+
+
+
+11. What happens if you use mv to move a file to another directory?
+
+The file is moved to another directory and is no longer in the original directory.
+
+
+
+12. Can cp copy a directory? If yes, what option is generally required?
+
+Yes. cp -r  <directory destination>
+
+
+
+13. where do you find system log files? which directory?
+
+/var/log
+
+Assignment-1: Create a Directory Structure
+Starting from your home directory, create the following structure:
+linux-assignment/
+├── students/
+├── trainers/
+├── courses/
+│ ├── linux/
+│ ├── docker/
+│ └── kubernetes/
+└── notes/
+Use only mkdir commands for creating the directories.
+
+mkdir -p creates the required parent if it does not already exists 
+Command : mkdir -p linux-assignment/{students,trainers,courses/{linux,docker,kubernetes},notes}
+
+Assignment 2 – Write Your First File
+Create:
+student.txt
+Use:
+cat > student.txt
+and write at least 5 lines containing your detail
+
+cd linux-assignment/students
+touch student.txt
+cat > student.txt
+Name: Amrita
+Course: SRE
+Experience: Fresher
+Location: Hyderabad
+Goal: DevOps Engineer
+
+Assignment 3 – Append Data
+Take the student.txt file from Assignment 5.
+Using:
+cat >> student.txt
+append at least 5 more lines.
+Do not overwrite the existing content
+
+cat >> student.txt
+Name: Ashley
+Course: DevOps
+Experience: Fresher
+Location: London
+Goal: DevOps 
+
+
+Assignment-4:
+Create the following files in one directory named "devops"
+linux.txt
+docker.txt
+kubernetes.txt
+student.txt
+trainer.txt
+linux-notes.txt
+docker-notes.txt
+k8s-notes.txt
+Create the following directories:
+courses/
+students/
+trainers/
+notes/
+Now organize the files by moving them into appropriate directories using mv
+
+mkdir devops
+cd devops
+touch devops/{linux.txt,docker.txt,kubernetes.txt,student.txt,trainer.txt,linux-notes.txt,docker-notes.txt,k8s-notes.txt}
+mkdir -p devops/{courses,students,trainers,notes}
+mv linux.txt docker.txt kubernetes.txt courses 
+mv student.txt students
+mv trainer.txt trainers
+mv linux-notes.txt docker-notes.txt k8s-notes.txt notes
+
+
+Assignment-5:
+Create:
+institute/
+├── students/
+│ ├── batch1/
+│ └── batch2/
+├── trainers/
+├── courses/
+│ ├── linux/
+│ ├── docker/
+│ ├── kubernetes/
+│ └── aws/
+├── notes/
+└── backups/
+
+
+mkdir -p institute/{students/{batch1,batch2},trainers,courses/{linux,docker,kubernetes,aws},notes,backups}
+
+
+Then:
+Create 3 student files in batch1.
+touch institute/students/batch1/{student1.txt,student2.txt,student3.txt} 
+
+Create 3 student files in batch2.
+touch institute/students/batch2/{student4.txt,student5.txt,student6.txt} 
+
+
+Create a trainer file.
+touch institute/trainers/trainers.txt 
+
+Create syllabus files for all courses.
+touch institute/courses/aws/aws.txt 
+touch institute/courses/docker/docker.txt
+touch institute/courses/kubernetes/kubernetes.txt 
+touch institute/courses/linux/linux.txt 
+
+Write syllabus content using cat >.
+cat > institute/courses/aws/aws.txt
+This content is for AWS
+
+cat > institute/courses/docker/docker.txt 
+This content is for Docker
+
+cat > institute/courses/kubernetes/kubernetes.txt
+This content is for Kubernetes
+
+cat > institute/courses/linux/linux.txt  
+This content is for Linux
+
+
+Append additional topics using cat >>.
+at >> institute/courses/aws/aws.txt
+adding more content using >>
+
+cat >> institute/courses/docker/docker.txt 
+Adding more content using >>
+
+cat >> institute/courses/kubernetes/kubernetes.txt
+Adding more conent using >>
+
+cat >> institute/courses/linux/linux.txt 
+Adding more content is Linux file.  
+
+
+
+Copy the Linux syllabus to notes/.
+cp institute/courses/linux/linux.txt institute/notes  
+
+
+Copy the Docker syllabus to backups/.
+cp institute/courses/docker/docker.txt institute/backups
+
+
+Rename one student file using mv.
+mv institute/students/batch1/student1.txt institute/students/batch1/student1_rename.txt 
+
+
+Display syllabus information using cat, head, tail, and tac.
+cat institute/courses/aws/aws.txt  
+This content is for AWS
+adding more content using >>
+
+head institute/courses/aws/aws.txt  
+This content is for AWS
+adding more content using >>
+
+tail institute/courses/aws/aws.txt  
+This content is for AWS
+adding more content using >>
+
+tac institute/courses/aws/aws.txt  
+adding more content using >>
+This content is for AWS

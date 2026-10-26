@@ -1,0 +1,46 @@
+=================================
+       SYSTEM HEALTH REPORT
+=================================
+
+Hostname: e8190b70ad54
+Date: Mon Oct 26 09:25:13 IST 2026
+
+-------- SYSTEM --------
+Uptime: 13 days 16 hours 53 mins
+Load Average:  3.36, 3.50, 3.41
+Logged-in Users: 0 users
+
+-------- MEMORY --------
+Total RAM: 3.8Gi
+Used RAM: 2.6Gi
+Free RAM: 186Mi
+Available RAM: 1.2Gi
+Swap: 1.0Gi
+
+-------- CPU --------
+CPU Utilization: 3.6 %
+Top CPU Process: both are  0 
+
+-------- DISK --------
+Filesystem: overlay
+Disk Utilization: 21G
+Largest Directory: overlay and /dev/vda1
+
+-------- PROCESSES --------
+Top CPU Process: 76227
+Top Memory Process: both are 0
+PID: 
+Threads:
+
+-------- PACKAGE --------
+Package Manager: apt
+Nginx Version:  nginx version: nginx/1.24.0 (Ubuntu)
+
+-------- CONCLUSION --------
+Is the server healthy? Yes
+
+If not:
+What is the problem?
+
+Recommended Action:
+

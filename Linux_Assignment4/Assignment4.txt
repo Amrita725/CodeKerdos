@@ -1,0 +1,122 @@
+Task-1 - Production Backup Simulation:
+--------------------------------------
+
+Create:
+
+production/
+	application/
+	config/
+	logs/
+	scripts/
+	data/
+Solution : mkdir -p production/{application,config,logs,scripts,data}
+
+1. Create at least 3 files in each directory. â
+Solution: touch application/{text1.txt,text2.txt,text3.txt}	
+	touch config/{text1.txt,text2.txt,text3.txt}
+		touch data/{text1.txt,text2.txt,text3.txt}
+		touch logs/{text1.txt,text2.txt,text3.txt}
+		touch scripts/{text1.txt,text2.txt,text3.txt}
+
+2. Create a compressed backup of the entire application. (using tar and zip)
+Solution : zip -r application_backup.zip application/
+		tar -cvf application_backup.tar application
+
+3. Display the archive contents without extracting.
+Solution:  unzip -l application_backup.zip
+		 tar -tvf application_backup.tar
+
+4. Extract it into /tmp/production_restore.
+Solution: unzip  application_backup.zip -d /tmp/production_restore
+		tar -xvf application_backup.tar -C /tmp/production_restore
+
+5. Verify that the complete directory structure and files are restored.
+root@e8190b70ad54:/tmp/production_restore# ls -ltr
+total 4
+drwxr-xr-x 2 root root 4096 Oct 28 06:44 application
+
+Task-2 - Configuration backup:
+------------------------------
+Create:
+
+config/
+	app.conf
+	database.conf
+	nginx.conf
+	redis.confâ
+Solution: touch {app.conf,database.conf,nginx.conf,redis.conf}
+
+1. Create config_backup.tar.gz.
+Solution: tar -cvzf config_backup.tar.gz config
+
+2. Delete the original config/ directory.
+Solution : rm -rf config 
+
+3. Restore it from the archive.
+Solution : tar -xvzf config_backup.tar.gz confi
+
+
+Task-3 - Add files to an existing tar archive:
+----------------------------------------------
+touch file{1..3}.txt
+
+1. Create backup.tar containing file1.txt and file2.txt.  
+Solution:  tar -cvf backup.tar file1.txt file2.txt
+
+2. Create file3.txt.
+
+3. Add file3.txt to the existing archive.
+Solution: tar -rvf backup.tar file3.txt 
+
+4. Verify the contents.
+tar -tvf backup.tar 
+
+
+Task-4 - Selective Archiving:
+-----------------------------
+Archive only specific directories
+
+Create application/ containing:
+logs/
+config/
+data/
+scripts/
+
+1. Create an archive containing only logs/ and config/.
+Solution : mkdir -p application/{logs,config,data,scripts}
+		 zip -r archive.zip logs/ config/
+		unzip -l archive.zip
+
+
+Assignment-5 - Archive specific files:
+-------------------------------------
+
+Create 5 files:
+
+app.log
+error.log
+access.log
+config.txt
+README.txt
+
+Solution: touch app.log error.log access.log config.txt README.txt
+
+1. Create an archive backup.tar.gz containing only the three .log files.
+Solution: tar -cvzf backup.tar.gz app.log error.log access.log
+
+2. List archive contents without extracting 
+Solution : tar -tvf backup.tar.gz
+
+3. Extract only error.log from the archive.â
+Solution: tar -xvzf backup.tar.gz error.log 
+
+4. Now add config.txt file to an existing tar archiveâ
+Solution: tar -rvf backup.tar config.txt 
+config.txt
+
+5. Verify the contents.
+Solution: tar -tvf backup.tar
+-rw-r--r-- root/root         0 2026-10-28 19:16 file1.txt
+-rw-r--r-- root/root         0 2026-10-28 19:16 file2.txt
+-rw-r--r-- root/root         0 2026-10-28 19:16 file3.txt
+-rw-r--r-- root/root         0 2026-10-29 02:34 config.txt¨

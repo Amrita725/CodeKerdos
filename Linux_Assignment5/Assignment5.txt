@@ -1,0 +1,92 @@
+Assignment-1 Basic User Management
+-----------------------------------
+Create a user named devuser1 : useradd -m devuser1
+Create three users: 
+developer1 : useradd -m developer1
+developer2 : useradd -m developer2
+developer3 : useradd -m developer3
+Verify that all three users were created : 
+id  developer1
+id developer2
+id  developer3 
+cat /etc/passwd
+Delete developer3 : userdel -r  developer3
+Create a user named tester1 : useradd -m tester1
+Change the username tester1 to qauser1 : usermod -l qauser1 tester1
+Delete qauser1 : userdel -r qauser1
+Create a user named admin1 and verify its UID and primary group : useradd -m admin1 
+								: id admin1
+
+
+Assignment-2 Group Management:
+-------------------------------
+Create the following groups: 
+developers : groupadd developers
+testers :  groupadd testers
+admins :  groupadd admins
+Verify that the groups were created : getent group
+Rename the group testers to qa : groupmod -n qa testers
+Delete the admins group  : groupdel admins
+Create a new group called operations. groupadd operations
+
+Assignment-3  Add Users to Groups:
+----------------------------------
+Create these users:
+john : useradd -m john 
+alice : useradd -m alice
+bob : useradd -m bob
+Add john and alice to the developers group. : usermod -aG developers john
+					     : usermod -aG developers alice	
+Add bob to the qa group : usermod -aG qa bob
+Add bob to the developers group without removing his existing group memberships : usermod -aG developer developer
+Verify the group memberships of all three users : id john 
+						 : id  alice
+		 				   : id bob
+Remove alice from the developers group : gpasswd -d alice developers
+Verify that alice is no longer a member of developers : id alice 
+
+
+Assignment-4 File Ownership:
+-----------------------------
+Create a directory:
+/project
+
+Create three files inside it:
+/project/app.conf
+/project/app.log
+/project/deploy.sh
+
+Change the owner of app.conf to john :  chown john app.conf 
+Change the owner and group of app.log to alice:developers : chown alice:developers app.log 
+Change the group ownership of deploy.sh to developers : chown :developers deploy.sh 
+Verify the ownership and group of all three files : ls -ltr
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment5/project# ls -ltr
+total 0
+-rw-r--r-- 1 john  root       0 Oct 31 00:13 app.conf
+-rw-r--r-- 1 alice developers 0 Oct 31 00:13 app.log
+-rw-r--r-- 1 root  developers 0 Oct 31 00:13 deploy.sh
+
+
+Assignment-5 File Permissions:
+-------------------------------
+Set the permissions of app.conf to rw-r----- : chmod 640 app.conf
+Set the permissions of app.log to rw-r--r--  : chmod 644 app.log
+Set the permissions of deploy.sh to rwxr-x--- : chmod 750 deploy.sh
+Verify the permissions using ls -l:
+ls -ltr
+total 0
+-rw-r----- 1 john  root       0 Oct 31 00:13 app.conf
+-rw-r--r-- 1 alice developers 0 Oct 31 00:13 app.log
+-rwxr-x--- 1 root  developers 0 Oct 31 00:13 deploy.sh
+
+Convert the following symbolic permissions into numeric permissions:
+rwxr-x---  : 750
+rw-r----- : 640
+rwxrwxr-x : 775
+r--r--r-- : 444
+
+Convert the following numeric permissions into symbolic permissions:
+755 : rwxr-xr-x
+644 : rw-r--r--
+750 : rwxr-x---
+700 : rwx------

@@ -1,0 +1,2 @@
+Linux Training
+I am adding a new line to training.txt

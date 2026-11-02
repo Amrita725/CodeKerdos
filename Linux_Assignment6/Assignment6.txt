@@ -1,0 +1,157 @@
+Assignment 1: ln Hard Links & Soft Links:
+-------------------------------------------
+Create a file:
+
+echo "Linux Training" > training.txt
+
+Perform the following:
+
+1. Create a hard link called training_hard.txt :  ln training.txt training_hard.txt
+2. Create a soft link called training_soft.txt : ln -s training.txt training_soft.txt
+3. Verify both using ls -li :  ls -li
+total 8
+1303571 -rw-r--r-- 1 root root  0 Nov  1 02:07 Assignment6.txt
+1307602 -rw-r--r-- 2 root root 15 Nov  1 02:07 training.txt
+1307602 -rw-r--r-- 2 root root 15 Nov  1 02:07 training_hard.txt
+1307604 lrwxrwxrwx 1 root root 12 Nov  1 02:09 training_soft.txt -> training.txt
+
+4. Modify training.txt and check both links. : Both training_soft.txt and training_hard.txt are modified same as training.txt
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment6# cat training_hard.txt 
+Linux Training
+I am adding a new line to training.txt
+
+root@e8190b70ad54:/CodeKerdos/Linux_Assignment6# cat training_soft.txt 
+Linux Training
+I am adding a new line to training.txt
+
+5. Delete training.txt : rm -rf training.txt
+6. Check what happens to the hard link and soft link :  the hard link still exists with the same inode number as that of the original training.txt file. Whereas the soft link is not broken.  It says no such file exists.
+7. Find the inode number of the hard link :  1307602
+ls -li
+total 4
+1303571 -rw-r--r-- 1 root root  0 Nov  1 02:07 Assignment6.txt
+1307602 -rw-r--r-- 1 root root 54 Nov  1 02:10 training_hard.txt
+1307604 lrwxrwxrwx 1 root root 12 Nov  1 02:09 training_soft.txt -> training.txt
+
+Questions:
+
+What is the difference between hard link and soft link?
+Hard link: Another directory entry pointing to the same inode and file data as the original. Both names access the same underlying file.
+Soft link (symbolic link): A separate file containing a path to the target. It has its own inode and can become broken if the target is removed or moved.
+
+Why does the hard link still work after deleting the originalâ
+A hard link refers directly to the same inode as the original file. Deleting the original filename removes only that directory entry. The file's data remains available as long as another hard link refers to the inode.
+Why does the soft link become broken?
+A soft link stores the target's pathname rather than directly referring to its inode. When training.txt is deleted, the path no longer resolves to a file, so training_soft.txt becomes a dangling symbolic link.
+
+Assignment - 2 cut:
+---------------------
+
+Create this file:
+
+101,Chenna,DevOps,85000
+102,Rahul,Testing,65000
+103,Priya,Development,90000
+104,Amit,DevOps,95000
+105,Sneha,Support,55000
+
+Save it as:
+
+employees.txt
+
+
+1. Display only employee IDs : awk -F ',' '{print $1}' employees.txt
+2. Display only employee names : awk -F ',' '{print $2}' employees.txt 
+3. Display only department names : awk -F ',' '{print $3}' employees.txt
+4. Display only salaries : awk -F ',' '{print $4} employees.txt
+5. Display name + department : awk -F ',' '{print "Name: " $2 " " "Department: " $4}' employees.txt
+6. Display name + salary : awk -F ',' '{print "Name: " $2 " " "Salary: " $4}' employees.txt 
+7. Display the first 2 fields: cut -d ',' -f 1,2 employees.txt
+8. Display the last field : awk -F ',' '{print $NF}' employees.txt
+9. Display employee names and salaries separated by - : awk -F ',' '{print $2 "-" $3}' employees.txt 
+10.Display as shown below format: awk -F ',' '{print $2 "earns" $3}' employees.txt 
+Chenna earns 85000
+Rahul earns 65000
+...
+...
+
+11.Print employees whose salary is greater than 80000 : awk -F ',' '$4>80000 {print $2}' employees.txt 
+12.Print employees working in DevOps : awk -F ',' '$3=="DevOps" {print $2}' employees.txt 
+13.Count the number of employees :  awk 'END {print NR }' employees.txt 
+14.Calculate the total salary :   awk -F ',' '{sum+= $4} END {print sum}' employees.txt 
+15.Calculate the average salary : awk -F ',' '{sum+= $4} END {print sum/NR}' employees.txt
+
+
+Assignment - 3 Real-World Log Analysis:
+-----------------------------------------
+
+Create access.log with below content:
+
+192.168.1.10 - - [12/Sep/2026:10:15:20] "GET /index.html" 200 1200
+192.168.1.20 - - [12/Sep/2026:10:16:10] "GET /login" 200 800
+192.168.1.10 - - [12/Sep/2026:10:17:30] "POST /login" 401 500
+192.168.1.30 - - [12/Sep/2026:10:18:40] "GET /products" 200 2400
+192.168.1.20 - - [12/Sep/2026:10:19:50] "GET /admin" 403 600
+192.168.1.40 - - [12/Sep/2026:10:20:15] "GET /products" 200 2200
+192.168.1.10 - - [12/Sep/2026:10:21:25] "POST /login" 401 500
+192.168.1.50 - - [12/Sep/2026:10:22:35] "GET /index.html" 200 1300
+192.168.1.20 - - [12/Sep/2026:10:23:45] "GET /admin" 403 600
+192.168.1.60 - - [12/Sep/2026:10:24:55] "GET /products" 500 300
+
+
+Using awk, cut, sed, grep, and basic Linux commands:
+
+1. Display all IP addresses : awk -F ' ' '{print $1}' access.log
+2. Display unique IP addresses :  awk -F ' ' '{print $1}' access.log | sort -u 
+3. Count requests from each IP : awk -F ' ' '{count[$1]++} END {for(ip in count) print ip, count[ip]}' access.log
+4. Find the IP generating the most requests :  awk '{count[$1]++} END {for (ip in count) print count[ip], ip}' access.log | sort -nr | awk 'NR==1 {max=$1} $1==max'
+5. Display all HTTP status codes : awk -F ' ' '{print "Status Code: " $7}' access.log
+6. Count how many requests returned 200 :  awk -F ' ' '$7==200 {count[$7]++} END {for (code in count) print "Status Code: " code " Number of requests: " count[code]}' access.log 
+7. Count how many requests returned 401 : awk -F ' ' '$7==401 {count[$7]++} END {for (code in count) print "Status Code: " code " Number of requests: " count[code]}' access.log 
+8. Count how many requests returned 403 : awk -F ' ' '$7==403 {count[$7]++} END {for (code in count) print "Status Code: " code " Number of requests: " count[code]}' access.log 
+9. Count how many requests returned 500 : awk -F ' ' '$7==500 {count[$7]++} END {for (code in count) print "Status Code: " code " Number of requests: " count[code]}' access.log 
+10.Display only failed requests :  awk '$7!=200' access.log 
+11.Display all requests to /admin : awk '$6=="/admin\""' access.log 
+12.Find the number of /products requests : awk '$6=="/products\""{count[$6]++} END {for(request in count) print request , count[request]}' access.log 
+13.Calculate the total response size : awk '{sum+=$8} END {print sum}' access.log
+14.Find the largest response size : awk '{print $8}' access.log | sort -nr | awk 'NR==1 {max=$1} $1==max'
+15.Find the IP addresses generating 401 responses : awk '$7==401 {print "IP: " $1}' access.log 
+16.Find IPs generating 403 responses : awk '$7==403 {print "IP: " $1}' access.log 
+17.Replace /admin with /secure-admin using sed :  sed 's/admin/secure-admin/' access.log 
+18.Replace HTTP 500 with ERROR : sed -n 's/500/ERROR/p' access.log 
+19.Replace HTTP 200 with SUCCESS : sed -n 's/200/SUCCESS/p' access.log
+20.Generate a report like:  
+===== ACCESS LOG REPORT =====
+
+Total Requests : 10
+Successful     : 6
+Unauthorized   : 2
+Forbidden      : 2
+Server Errors  : 1
+
+Script:
+
+#!/bin/bash
+
+awk '
+{
+    total++
+
+    if ($7 == 200)
+        successful++
+    else if ($7 == 401)
+        unauthorized++
+    else if ($7 == 403)
+        forbidden++
+    else if ($7 >= 500 && $7 < 600)
+        server_errors++
+}
+END {
+    print "===== ACCESS LOG REPORT ====="
+    print ""
+    print "Total Requests :", total
+    print "Successful     :", successful
+    print "Unauthorized   :", unauthorized
+    print "Forbidden      :", forbidden
+    print "Server Errors  :", server_errors
+}' access.log
